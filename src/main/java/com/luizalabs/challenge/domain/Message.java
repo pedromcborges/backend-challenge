@@ -21,14 +21,18 @@ public class Message {
     @Enumerated(EnumType.STRING)
     public StatusEnum status;
 
+    @Enumerated(EnumType.STRING)
+    public ChannelEnum channel;
 
-    public static Message set(LocalDateTime sendDate, String destination, String message, StatusEnum status) {
+
+    public static Message set(LocalDateTime sendDate, String destination, String message, ChannelEnum channel) {
         Message messageEntity = new Message();
         messageEntity.id = UUID.randomUUID();
         messageEntity.sendDate = sendDate;
         messageEntity.destination = destination;
         messageEntity.message = message;
-        messageEntity.status = status;
+        messageEntity.status = StatusEnum.NOT_SENT;
+        messageEntity.channel = channel;
 
         return messageEntity;
     }

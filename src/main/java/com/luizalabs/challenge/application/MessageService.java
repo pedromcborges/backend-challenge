@@ -18,4 +18,8 @@ public class MessageService {
     public Page<Message> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+
+    public Message create(Message message) {
+        return repository.save(message);
+    }
 }

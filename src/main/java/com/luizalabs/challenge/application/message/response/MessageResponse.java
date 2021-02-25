@@ -1,5 +1,6 @@
 package com.luizalabs.challenge.application.message.response;
 
+import com.luizalabs.challenge.domain.ChannelEnum;
 import com.luizalabs.challenge.domain.Message;
 import com.luizalabs.challenge.domain.StatusEnum;
 
@@ -13,6 +14,7 @@ public class MessageResponse {
     public String destination;
     public String message;
     public StatusEnum status;
+    public ChannelEnum channel;
 
 
     public static MessageResponse from(Message message) {
@@ -22,6 +24,7 @@ public class MessageResponse {
         messageResponse.destination = message.destination;
         messageResponse.message = message.message;
         messageResponse.status = message.status;
+        messageResponse.channel = message.channel;
 
         return messageResponse;
     }
