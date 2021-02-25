@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: library/postgres:9.6-alpine
+    ports:
+    - 5432:5432
+    environment:
+      - POSTGRES_DB=luizalabs
+      - POSTGRES_USER=guest
+      - POSTGRES_PASSWORD=guest
+    networks:
+      - development
+
+networks:
+  development:
+    driver: bridge
