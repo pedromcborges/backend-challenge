@@ -2,9 +2,13 @@ package com.luizalabs.challenge.application;
 
 import com.luizalabs.challenge.domain.Message;
 import com.luizalabs.challenge.domain.repository.MessageRepository;
+import javassist.NotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class MessageService {
@@ -21,5 +25,9 @@ public class MessageService {
 
     public Message create(Message message) {
         return repository.save(message);
+    }
+
+    public Message findById(UUID uuid) throws NotFoundException {
+        return repository.findById(uuid).orElseThrow(() -> new NotFoundException("Message not found"));
     }
 }
