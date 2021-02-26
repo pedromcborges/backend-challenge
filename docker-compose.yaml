@@ -6,7 +6,7 @@ services:
     ports:
     - 5432:5432
     environment:
-      - POSTGRES_DB=luizalabs
+      - POSTGRES_DB=backend
       - POSTGRES_USER=guest
       - POSTGRES_PASSWORD=guest
     networks:
