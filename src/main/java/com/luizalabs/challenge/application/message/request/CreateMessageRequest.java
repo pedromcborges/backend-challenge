@@ -9,16 +9,16 @@ import java.time.LocalDateTime;
 
 public class CreateMessageRequest {
 
-    @NotNull(message = "Field send date should not be null")
+    @NotNull(message = "Field must not be null")
     public LocalDateTime sendDate;
 
-    @NotNull(message = "Field destination should not be null")
-    @NotBlank(message = "Field destination should not be blank")
+    @NotNull(message = "Field must not be null")
+    @NotBlank(message = "Field must not be blank")
     public String destination;
 
     public String message;
 
-    @NotNull(message = "Field destination should not be null")
+    @NotNull(message = "Field must not be null")
     public ChannelEnum channel;
 
     public static Message toMessage(CreateMessageRequest createMessageRequest) {

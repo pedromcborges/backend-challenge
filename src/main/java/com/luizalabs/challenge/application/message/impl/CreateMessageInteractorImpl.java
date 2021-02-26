@@ -18,7 +18,7 @@ public class CreateMessageInteractorImpl implements CreateMessageInteractor {
 
     @Override
     public MessageResponse execute(CreateMessageRequest message) {
-        Message createdMessage = service.create(CreateMessageRequest.toMessage(message));
+        Message createdMessage = service.save(CreateMessageRequest.toMessage(message));
         return MessageResponse.from(createdMessage);
     }
 }
