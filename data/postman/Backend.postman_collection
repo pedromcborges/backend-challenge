@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "9a49a25e-21d4-4c68-88c0-3eb46ed14a3a",
+		"name": "Luizalabs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"id\", response[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sendDate\": \"2021-04-03T00:00:00\",\r\n    \"destination\": \"Pedro\",\r\n    \"message\": \"Enviando uma mensagem\",\r\n    \"channel\": \"SMS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/v1/messages",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"v1",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination\": \"Enviada\",\r\n    \"message\": \"Mensagem enviada\",\r\n    \"channel\": \"WHATSAPP\",\r\n    \"status\": \"SENT\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/v1/messages/{{id}}",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"v1",
+						"messages",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/v1/messages?page=0",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"v1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/v1/messages/{{id}}",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"v1",
+						"messages",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/v1/messages/{{id}}",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"v1",
+						"messages",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

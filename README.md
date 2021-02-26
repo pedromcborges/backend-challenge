@@ -9,11 +9,10 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-[comment]: <> (## Postman)
+## Postman
 
-[comment]: <> ([Colection]: )
-
-[comment]: <> ([Environments]: )
+[Colection]: data/postman/Backend.postman_collection
+[Environments]: data/postman/Backend.postman_environment
 
 
 
