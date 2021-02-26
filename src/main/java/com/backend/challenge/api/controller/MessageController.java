@@ -1,9 +1,6 @@
 package com.backend.challenge.api.controller;
 
-import com.backend.challenge.application.message.CreateMessageInteractor;
-import com.backend.challenge.application.message.FindAllMessagesInteractor;
-import com.backend.challenge.application.message.FindMessageByIdInteractor;
-import com.backend.challenge.application.message.UpdateMessageInteractor;
+import com.backend.challenge.application.message.*;
 import com.backend.challenge.application.message.request.CreateMessageRequest;
 import com.backend.challenge.application.message.request.UpdateMessageRequest;
 import com.backend.challenge.application.message.response.MessageResponse;
@@ -23,15 +20,18 @@ public class MessageController {
     private final FindMessageByIdInteractor findMessageByIdInteractor;
     private final CreateMessageInteractor createMessageInteractor;
     private final UpdateMessageInteractor updateMessageInteractor;
+    private final DeleteMessageInteractor deleteMessageInteractor;
 
     public MessageController(FindAllMessagesInteractor findAllMessagesInteractor,
                              FindMessageByIdInteractor findMessageByIdInteractor,
                              CreateMessageInteractor createMessageInteractor,
-                             UpdateMessageInteractor updateMessageInteractor) {
+                             UpdateMessageInteractor updateMessageInteractor,
+                             DeleteMessageInteractor deleteMessageInteractor) {
         this.findAllMessagesInteractor = findAllMessagesInteractor;
         this.findMessageByIdInteractor = findMessageByIdInteractor;
         this.createMessageInteractor = createMessageInteractor;
         this.updateMessageInteractor = updateMessageInteractor;
+        this.deleteMessageInteractor = deleteMessageInteractor;
     }
 
     @PostMapping
@@ -53,5 +53,10 @@ public class MessageController {
     private MessageResponse update(@PathVariable UUID uuid,
                                    @Valid @RequestBody UpdateMessageRequest request) throws NotFoundException {
         return updateMessageInteractor.execute(uuid, request);
+    }
+
+    @DeleteMapping("/{uuid}")
+    private void delete(@PathVariable UUID uuid) throws NotFoundException {
+        deleteMessageInteractor.execute(uuid);
     }
 }

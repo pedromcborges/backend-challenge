@@ -1,6 +1,7 @@
 package com.backend.challenge.api;
 
 import com.backend.challenge.application.message.response.ErrorMessageResponse;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class ChallengeExceptionHandler {
     @ResponseBody
     private ErrorMessageResponse handleExceptions(Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
-        return ErrorMessageResponse.of(500, ex.getMessage());
+        return ErrorMessageResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -37,7 +38,7 @@ public class ChallengeExceptionHandler {
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
-        return ErrorMessageResponse.of(400, errors);
+        return ErrorMessageResponse.of(HttpStatus.BAD_REQUEST.value(), errors);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -45,6 +46,14 @@ public class ChallengeExceptionHandler {
     @ResponseBody
     private ErrorMessageResponse handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         LOGGER.error(ex.getMessage(), ex);
-        return ErrorMessageResponse.of(400, ex.getCause().getMessage());
+        return ErrorMessageResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getCause().getMessage());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    private ErrorMessageResponse handleNotFound(NotFoundException ex) {
+        LOGGER.error(ex.getMessage(), ex);
+        return ErrorMessageResponse.of(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 }

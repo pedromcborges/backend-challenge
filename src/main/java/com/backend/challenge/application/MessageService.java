@@ -29,4 +29,8 @@ public class MessageService {
     public Message findById(UUID uuid) throws NotFoundException {
         return repository.findById(uuid).orElseThrow(() -> new NotFoundException("Message not found: " + uuid));
     }
+
+    public void delete(Message message) {
+        repository.delete(message);
+    }
 }
