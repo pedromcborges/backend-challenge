@@ -35,28 +35,28 @@ public class MessageController {
     }
 
     @PostMapping
-    private MessageResponse create(@Valid @RequestBody CreateMessageRequest request) {
+    public MessageResponse create(@Valid @RequestBody CreateMessageRequest request) {
         return createMessageInteractor.execute(request);
     }
 
     @GetMapping
-    private Page<MessageResponse> findAll(Pageable pageable) {
+    public Page<MessageResponse> findAll(Pageable pageable) {
         return findAllMessagesInteractor.execute(pageable);
     }
 
     @GetMapping("/{uuid}")
-    private MessageResponse findById(@PathVariable UUID uuid) throws NotFoundException {
+    public MessageResponse findById(@PathVariable UUID uuid) throws NotFoundException {
         return findMessageByIdInteractor.execute(uuid);
     }
 
     @PutMapping("/{uuid}")
-    private MessageResponse update(@PathVariable UUID uuid,
+    public MessageResponse update(@PathVariable UUID uuid,
                                    @Valid @RequestBody UpdateMessageRequest request) throws NotFoundException {
         return updateMessageInteractor.execute(uuid, request);
     }
 
     @DeleteMapping("/{uuid}")
-    private void delete(@PathVariable UUID uuid) throws NotFoundException {
+    public void delete(@PathVariable UUID uuid) throws NotFoundException {
         deleteMessageInteractor.execute(uuid);
     }
 }

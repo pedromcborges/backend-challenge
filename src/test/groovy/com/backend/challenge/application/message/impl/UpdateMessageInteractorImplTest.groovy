@@ -1,9 +1,7 @@
 package com.backend.challenge.application.message.impl
 
 import com.backend.challenge.application.MessageService
-import com.backend.challenge.application.message.request.CreateMessageRequest
 import com.backend.challenge.application.message.request.UpdateMessageRequest
-import com.backend.challenge.application.message.response.MessageResponse
 import com.backend.challenge.domain.ChannelEnum
 import com.backend.challenge.domain.Message
 import com.backend.challenge.domain.StatusEnum

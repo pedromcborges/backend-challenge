@@ -5,7 +5,6 @@ import com.backend.challenge.domain.ChannelEnum
 import com.backend.challenge.domain.Message
 import com.backend.challenge.domain.repository.MessageRepository
 import javassist.NotFoundException
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
