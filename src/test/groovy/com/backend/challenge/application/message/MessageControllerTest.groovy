@@ -1,6 +1,7 @@
 package com.backend.challenge.application.message
 
 import com.backend.challenge.api.controller.MessageController
+import com.backend.challenge.application.message.mappers.MessageMapper
 import com.backend.challenge.application.message.request.CreateMessageRequest
 import com.backend.challenge.application.message.request.UpdateMessageRequest
 import com.backend.challenge.application.message.response.MessageResponse
@@ -15,11 +16,13 @@ import java.time.LocalDateTime
 class MessageControllerTest extends Specification{
     private MessageController controller
 
-    private final FindAllMessagesInteractor findAllMessagesInteractor = Mock(FindAllMessagesInteractor)
-    private final FindMessageByIdInteractor findMessageByIdInteractor = Mock(FindMessageByIdInteractor)
-    private final CreateMessageInteractor createMessageInteractor = Mock(CreateMessageInteractor)
-    private final UpdateMessageInteractor updateMessageInteractor = Mock(UpdateMessageInteractor)
-    private final DeleteMessageInteractor deleteMessageInteractor = Mock(DeleteMessageInteractor)
+    private FindAllMessagesInteractor findAllMessagesInteractor = Mock(FindAllMessagesInteractor)
+    private FindMessageByIdInteractor findMessageByIdInteractor = Mock(FindMessageByIdInteractor)
+    private CreateMessageInteractor createMessageInteractor = Mock(CreateMessageInteractor)
+    private UpdateMessageInteractor updateMessageInteractor = Mock(UpdateMessageInteractor)
+    private DeleteMessageInteractor deleteMessageInteractor = Mock(DeleteMessageInteractor)
+
+    private MessageMapper mapper = new MessageMapper()
 
     void setup() {
         this.controller = new MessageController(findAllMessagesInteractor,
@@ -48,7 +51,7 @@ class MessageControllerTest extends Specification{
     def "when find  message by Id should do it successfully"() {
         given:
         def uuid = UUID.randomUUID()
-        def response = MessageResponse.from(getDummyMessage())
+        def response = mapper.messageToResponse(getDummyMessage())
 
         when:
         this.controller.findById(uuid)
@@ -62,8 +65,8 @@ class MessageControllerTest extends Specification{
     def "when create message should do it successfully"() {
         given:
         def request = getDummyCreateMessageRequest("message", null, null)
-        def message = CreateMessageRequest.toMessage(request)
-        def response = MessageResponse.from(message)
+        def message = mapper.createMessageRequestToMessage(request)
+        def response = mapper.messageToResponse(message)
 
         when:
         this.controller.create(request)
@@ -79,9 +82,9 @@ class MessageControllerTest extends Specification{
         def request = getDummyUpdateMessageRequest()
         def message = getDummyMessage()
         def uuid = message.id
-        def updatedMessage = new UpdateMessageRequest().update(message, request)
+        def updatedMessage = mapper.updateMessage(message, request)
 
-        def response = MessageResponse.from(updatedMessage)
+        def response = mapper.messageToResponse(updatedMessage)
 
         when:
         this.controller.update(uuid, request)

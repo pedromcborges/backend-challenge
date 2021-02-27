@@ -1,6 +1,7 @@
 package com.backend.challenge.application.message.impl
 
 import com.backend.challenge.application.MessageService
+import com.backend.challenge.application.message.mappers.MessageMapper
 import com.backend.challenge.application.message.request.CreateMessageRequest
 import com.backend.challenge.application.message.response.MessageResponse
 import com.backend.challenge.domain.ChannelEnum
@@ -13,15 +14,16 @@ class CreateMessageInteractorImplTest extends Specification{
 
     private CreateMessageInteractorImpl createMessageInteractorImpl
     private MessageRepository repository = Mock(MessageRepository)
+    private MessageMapper mapper = new MessageMapper()
 
     void setup() {
-        this.createMessageInteractorImpl = new CreateMessageInteractorImpl(new MessageService(repository))
+        this.createMessageInteractorImpl = new CreateMessageInteractorImpl(new MessageService(repository), mapper)
     }
 
     def "when save message should do it successfully"() {
         given:
         def createMessageRequest = getDummyCreateMessageRequest("message", ChannelEnum.SMS, "destination")
-        def message = createMessageRequest.toMessage(createMessageRequest)
+        def message = mapper.createMessageRequestToMessage(createMessageRequest)
 
         when:
         def result = this.createMessageInteractorImpl.execute(createMessageRequest)

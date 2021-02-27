@@ -15,17 +15,4 @@ public class MessageResponse {
     public String message;
     public StatusEnum status;
     public ChannelEnum channel;
-
-
-    public static MessageResponse from(Message message) {
-        MessageResponse messageResponse = new MessageResponse();
-        messageResponse.id = message.id;
-        messageResponse.sendDate = message.sendDate;
-        messageResponse.destination = message.destination;
-        messageResponse.message = message.message;
-        messageResponse.status = message.status;
-        messageResponse.channel = message.channel;
-
-        return messageResponse;
-    }
 }

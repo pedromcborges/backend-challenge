@@ -1,5 +1,6 @@
 package com.backend.challenge.application.message.impl;
 
+import com.backend.challenge.application.message.mappers.MessageMapper;
 import com.backend.challenge.application.message.request.UpdateMessageRequest;
 import com.backend.challenge.application.message.response.MessageResponse;
 import com.backend.challenge.domain.Message;
@@ -14,16 +15,18 @@ import java.util.UUID;
 public class UpdateMessageInteractorImpl implements UpdateMessageInteractor {
 
     private final MessageService service;
+    private final MessageMapper mapper;
 
-    public UpdateMessageInteractorImpl(MessageService service) {
+    public UpdateMessageInteractorImpl(MessageService service, MessageMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @Override
     public MessageResponse execute(UUID uuid, UpdateMessageRequest request) throws NotFoundException {
         Message message = service.findById(uuid);
 
-        Message createdMessage = service.save(new UpdateMessageRequest().update(message, request));
-        return MessageResponse.from(createdMessage);
+        Message updatedMessage = service.save(mapper.updateMessage(message, request));
+        return mapper.messageToResponse(updatedMessage);
     }
 }

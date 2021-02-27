@@ -23,12 +23,4 @@ public class UpdateMessageRequest {
 
     @NotNull(message = "Field must not be null")
     public StatusEnum status;
-
-    public Message update(Message message, UpdateMessageRequest updateMessageRequest) {
-        message.destination = updateMessageRequest.destination;
-        message.message = updateMessageRequest.message;
-        message.channel = updateMessageRequest.channel;
-        message.status = updateMessageRequest.status;
-        return message;
-    }
 }

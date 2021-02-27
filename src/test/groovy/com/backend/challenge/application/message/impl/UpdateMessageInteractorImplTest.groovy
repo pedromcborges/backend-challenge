@@ -1,6 +1,7 @@
 package com.backend.challenge.application.message.impl
 
 import com.backend.challenge.application.MessageService
+import com.backend.challenge.application.message.mappers.MessageMapper
 import com.backend.challenge.application.message.request.UpdateMessageRequest
 import com.backend.challenge.domain.ChannelEnum
 import com.backend.challenge.domain.Message
@@ -15,9 +16,10 @@ class UpdateMessageInteractorImplTest extends Specification{
 
     private UpdateMessageInteractorImpl updateMessageInteractor
     private MessageRepository repository = Mock(MessageRepository)
+    private MessageMapper mapper = new MessageMapper()
 
     void setup() {
-        this.updateMessageInteractor = new UpdateMessageInteractorImpl(new MessageService(repository))
+        this.updateMessageInteractor = new UpdateMessageInteractorImpl(new MessageService(repository), mapper)
     }
 
     def "when update message should do it successfully"() {

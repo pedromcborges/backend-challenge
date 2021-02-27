@@ -1,6 +1,7 @@
 package com.backend.challenge.application.message.impl
 
 import com.backend.challenge.application.MessageService
+import com.backend.challenge.application.message.mappers.MessageMapper
 import com.backend.challenge.domain.ChannelEnum
 import com.backend.challenge.domain.Message
 import com.backend.challenge.domain.repository.MessageRepository
@@ -14,9 +15,10 @@ class FindAllMessagesInteractorImplTest extends Specification{
 
     private FindAllMessagesInteractorImpl findAllMessagesInteractor
     private MessageRepository repository = Mock(MessageRepository)
+    private MessageMapper mapper = new MessageMapper()
 
     void setup() {
-        this.findAllMessagesInteractor = new FindAllMessagesInteractorImpl(new MessageService(repository))
+        this.findAllMessagesInteractor = new FindAllMessagesInteractorImpl(new MessageService(repository), mapper)
     }
 
     def "when find all messages should do it successfully"() {

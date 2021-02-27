@@ -23,12 +23,4 @@ public class CreateMessageRequest {
 
     @NotNull(message = "Field must not be null")
     public ChannelEnum channel;
-
-    public static Message toMessage(CreateMessageRequest createMessageRequest) {
-        return Message.set(
-                createMessageRequest.sendDate,
-                createMessageRequest.destination,
-                createMessageRequest.message,
-                createMessageRequest.channel);
-    }
 }
